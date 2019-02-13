@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>视频管理后台</title>
+  <link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+
+
+
+<style>
+
+.layui-table img {
+    max-width: 100%;
+}
+
+.layui-nav * {
+    font-size: 16px;
+font-weight:bold;
+}
+
+</style>
+
+
+
+</head>
+<body class="layui-layout-body ">
+<div class="layui-layout layui-layout-admin layui-bg-blue">
+  <div class="layui-header layui-bg-blue">
+    <div class="layui-logo layui-bg-blue">魅影_ 局域网视频管理后台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+   
+  
+  </div>
+
+
+
+
+ <div class="layui-side layui-bg-blue">
+    <div class="layui-side-scroll layui-bg-blue">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree layui-bg-blue"  lay-filter="test">
+        
+      <li class="layui-nav-item layui-bg-blue"><a href="__URL__/admin">视频管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/sort">视频分类管理</a></li>
+  	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/user">用户管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/repass">修改密码</a></li>
+ 	 <li class="layui-nav-item layui-bg-blue"><a href="__URL__/logout">退出登陆</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+
+
+
+  
+  <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+
+
+<div class="layui-row layui-col-space10">
+  <div class="layui-col-md4">
+<a href="__URL__/admin">
+<font size="5" color="#01AAED">
+返回&nbsp;&nbsp;&nbsp;
+</font></a>
+<font size="5" color="#01AAED">
+     修改视频信息&nbsp;&nbsp;&nbsp;{$error}
+</font>
+
+
+  </div>
+  <div class="layui-col-md4" >
+
+<div class="layui-btn-container">
+
+
+</div>
+
+  </div>
+  <div class="layui-col-md4">
+  	
+  </div>
+</div>
+
+
+
+
+
+<table class="layui-table" lay-even lay-skin="nob">
+
+
+ <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+<th>id</th>
+      <th>视频名称</th>
+   <th>分类</th>
+      <th>视频缩略图</th>
+
+	<th>保存</th>
+
+    </tr> 
+  </thead>
+  <tbody>
+    <tr>
+{foreach $viinfo as $k => $v }
+<form class="layui-form" action="__URL__/checksort" method="post">
+<input name="id" type="hidden" value="{$v.id}" >
+<td>{$v.id}</td>
+ <td>
+      <textarea name="rename" placeholder="请输入内容" class="layui-textarea">{$v.vname}</textarea>
+ </td>
+ <td>
+<select name="sort">
+  <option value="{$v.sortid}">{$v.name}</option>
+{volist name="sortinfo" id="sort"}
+  <option value="{$sort.id}">{$sort.name}</option>
+{/volist}
+</select>    
+ </td>
+<td><img src="__VIDEOIMG__/{$v.vimg}" ></td>
+<td><input type="submit" class="layui-btn layui-btn-normal layui-btn-sm" value="保存修改信息"></td>
+</form>
+{/foreach}
+    </tr>
+   
+  </tbody>
+
+
+
+
+</table>
+
+
+
+
+
+
+</div>
+  </div>
+  
+ 
+</div>
+
+
+
+<script src="__ADMIN__/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+
+
+
+
+
+
+</body>
+</html>
+
+               
+          
+

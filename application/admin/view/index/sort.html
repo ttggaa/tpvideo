@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>视频管理后台</title>
+  <link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+
+
+  <script src="__ADMIN__/layui/layer/jquery.min.js"></script>
+  <script src="__ADMIN__/layui/layer/layer.js"></script>
+
+
+<style>
+
+.layui-nav * {
+    font-size: 16px;
+font-weight:bold;
+}
+
+
+
+
+  .layui-layer {
+    -webkit-overflow-scrolling: touch;
+    top: 150px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background-color: #000 !important ;
+    background-color:rgba(0,0,0,.3) !important;
+    -webkit-background-clip: content;
+    border-radius: 2px;
+    box-shadow: 1px 1px 50px rgba(0,0,0,.6) !important ;
+  
+}
+.layui-layer-page .layui-layer-content{
+  color:#fff !important;
+}
+.layui-layer-title{
+/*color:#fff !important;
+background-color: rgba(0,0,0,.0) !important;*/
+background-color: #1E9FFF !important;
+ border-bottom:none !important;
+}
+
+
+
+
+
+</style>
+
+
+
+</head>
+<body class="layui-layout-body ">
+<div class="layui-layout layui-layout-admin layui-bg-blue">
+  <div class="layui-header layui-bg-blue">
+    <div class="layui-logo layui-bg-blue">魅影_ 局域网视频管理后台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+   
+  
+  </div>
+
+
+
+
+ <div class="layui-side layui-bg-blue">
+    <div class="layui-side-scroll layui-bg-blue">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree layui-bg-blue"  lay-filter="test">
+        
+        <li class="layui-nav-item layui-bg-blue"><a href="__URL__/admin">视频管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/sort">视频分类管理</a></li>
+  	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/user">用户管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/repass">修改密码</a></li>
+ 	 <li class="layui-nav-item layui-bg-blue"><a href="__URL__/logout">退出登陆</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+
+
+
+  
+  <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+
+
+<div class="layui-row layui-col-space10">
+  <div class="layui-col-md4">
+<font size="5" color="#01AAED">
+      视频分类管理&nbsp;&nbsp;&nbsp;{$error}
+</font>
+
+
+  </div>
+  <div class="layui-col-md4" >
+
+<div class="layui-btn-container">
+</div>
+
+  </div>
+  <div class="layui-col-md4">
+  	<form class="layui-form"  action="__URL__/addsort" method="post">
+	<input type="text" style="height:24px;width:200px"  name="addsort" required  lay-verify="required" placeholder="添加分类" autocomplete="off"  >
+	<input type="submit" value="添加分类"class="layui-btn layui-btn-sm layui-btn-normal">
+	</form>
+  </div>
+</div>
+
+
+
+
+
+<table class="layui-table" lay-even lay-skin="nob">
+
+ <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+	<th>分类id</th>
+      <th>分类名称</th>
+      <th>修改时间</th>
+      <th>修改分类名称</th>
+ 	<th>删除分类</th>
+    </tr> 
+  </thead>
+  <tbody>
+{volist name="sortinfo" id="info"}
+    <tr id="{$info.id}">
+      <td>{$info.id}</td>
+      <td>{$info.name}</td>
+      <td>{$info.stime}</td>
+
+<td>
+ <div class="clearfix layer-text">
+
+ <div class="clearfix layer-area" id="chutiyan">
+
+  <a class="layui-btn resort layui-btn-normal layui-btn-sm " href="javascript:;" id="{$info.id}">重命名分类</a>
+
+ </div>
+</div>
+
+</td>
+<td>
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+ <button id="{$info.id}" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal layui-btn-sm">删除分类</button>
+</div>
+</td>
+    </tr>
+  {/volist}
+  </tbody>
+
+
+</table>
+
+
+
+<div class="layui-row layui-col-space9">
+  <div class="layui-col-md6">
+&nbsp;
+  </div>
+  <div class="layui-col-md5">
+{$page}
+  </div>
+  <div class="layui-col-md1">
+&nbsp;
+  </div>
+</div>
+
+
+
+
+
+
+</div>
+  </div>
+  
+ </div>
+
+
+
+
+<script src="__ADMIN__/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+
+
+
+
+
+
+
+
+layui.use('layer', function(){ //独立版的layer无需执行这一句
+  var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+  
+  //触发事件
+  var active = {
+    setTop: function(){
+      var that = this; 
+      //多窗口模式，层叠置顶
+    
+    }
+ 
+    ,offset: function(othis){
+      var type = othis.data('type')
+      ,text = othis.text();
+      
+      layer.open({
+        type: 1
+        ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+        ,id: 'layerDemo'+type //防止重复弹出
+        ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
+        ,btn: '确认删除'
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0 //不显示遮罩
+        ,yes: function(){
+          $.post("__URL__/delsort",{id:othis[0].id},function(result){
+             console.log(result);
+		
+		if(result=="no"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('此分类有视频,无法删除');
+			});
+		}
+
+		if(result=="error"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('删除分类失败');
+			});
+		}
+
+		if(result=="ok"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('删除视频成功');
+			});
+     		     $(othis).parent().parent().parent().remove();
+		}
+
+          })
+
+          layer.closeAll();
+        }
+      });
+    }
+  };
+  
+  $('#layerDemo .layui-btn').on('click', function(){
+    var othis = $(this), method = othis.data('method');
+    active[method] ? active[method].call(this, othis) : '';
+  });
+  
+});
+
+
+
+</script>
+
+
+
+<script>
+
+
+
+//;!function(){n-primary"
+
+$(".resort").click(function(e){
+   
+//页面一打开就执行，放入ready是为了layer所需配件（css、扩展模块）加载完毕
+layer.ready(function(){ 
+ layer.prompt({title: '请输入新的分类名:', formType: 3}, function(pass, index){
+  layer.close(index);
+
+  //  layer.msg('演示完毕！您的口令：'+ pass );
+console.log(pass);
+console.log(e.currentTarget.id);
+$.post("__URL__/renamesort",{
+ Id:e.currentTarget.id,   
+ Value:pass
+},function(result){
+
+  console.log(result);
+
+	if(result=="error"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('此分类名字已经存在,无法修改');
+			});
+		}
+  
+if(result=="ok"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('修改成功,刷新网页显示修改结果');
+			});
+		}
+
+if(result=="no"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('修改失败');
+			});
+		}
+  
+
+
+
+} )
+});
+});
+
+
+})
+
+
+
+//}();
+
+</script>
+
+
+</body>
+</html>
+
+               
+          
+

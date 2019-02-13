@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>视频管理后台</title>
+  <link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+<style>
+.layui-nav * {
+    font-size: 16px;
+font-weight:bold;
+}
+
+
+
+  .layui-layer {
+    -webkit-overflow-scrolling: touch;
+    top: 150px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background-color: #000 !important ;
+    background-color:rgba(0,0,0,.3) !important;
+    -webkit-background-clip: content;
+    border-radius: 2px;
+    box-shadow: 1px 1px 50px rgba(0,0,0,.6) !important ;
+  
+}
+.layui-layer-page .layui-layer-content{
+  color:#fff !important;
+}
+.layui-layer-title{
+/*color:#fff !important;
+background-color: rgba(0,0,0,.0) !important;*/
+background-color: #1E9FFF !important;
+ border-bottom:none !important;
+}
+
+
+
+
+</style>
+
+
+
+</head>
+<body class="layui-layout-body ">
+<div class="layui-layout layui-layout-admin layui-bg-blue">
+  <div class="layui-header layui-bg-blue">
+    <div class="layui-logo layui-bg-blue">魅影_ 局域网视频管理后台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+   
+  
+  </div>
+
+
+ <div class="layui-side layui-bg-blue">
+    <div class="layui-side-scroll layui-bg-blue">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree layui-bg-blue"  lay-filter="test">
+        
+      <li class="layui-nav-item layui-bg-blue"><a href="__URL__/admin">视频管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/sort">视频分类管理</a></li>
+  	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/user">用户管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/repass">修改密码</a></li>
+ 	 <li class="layui-nav-item layui-bg-blue"><a href="__URL__/logout">退出登陆</a></li>
+	
+      </ul>
+    </div>
+  </div>
+
+
+
+
+  
+  <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+
+
+<div class="layui-row layui-col-space10">
+  <div class="layui-col-md7">
+
+<font size="5" color="#01AAED">
+      用户管理&nbsp;&nbsp;&nbsp;{$error}
+</font>
+
+
+  </div>
+  <div class="layui-col-md1" >
+
+<div class="layui-btn-container">
+
+
+
+</div>
+
+  </div>
+  <div class="layui-col-md4">
+  	<form class="layui-form"  action="__URL__/adduser" method="post">
+	<input type="text" style="height:24px;width:200px"  name="username" required  lay-verify="required" placeholder="输入用户名" autocomplete="off"  >
+	<input type="submit" value="添加用户"class="layui-btn layui-btn-sm layui-btn-normal">
+	</form>
+  </div>
+</div>
+
+
+
+
+
+<table class="layui-table" lay-even lay-skin="nob">
+
+ <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+	<th>用户id</th>
+      <th>用户名</th>
+      <th>修改时间</th>
+<th>修改用户密码(仅限admin用户)</th>
+ 	<th>删除用户(仅限admin用户)</th>
+    </tr> 
+  </thead>
+  <tbody>
+{volist name="userinfo" id="info"}
+    <tr>
+      <td>{$info.id}</td>
+      <td>{$info.username}</td>
+      <td>{$info.admtime}</td>
+<td><a href="__URL__/reuser/id/{$info.id}" class="layui-btn layui-btn-sm layui-btn-normal">修改用户密码</a></td>
+	<td>
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+ <button id="{$info.id}" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal layui-btn-sm">删除用户</button>
+</div>
+</td>
+    </tr>
+  {/volist}
+  </tbody>
+
+
+
+
+</table>
+
+
+
+
+<div class="layui-row layui-col-space9">
+  <div class="layui-col-md6">
+&nbsp;
+  </div>
+  <div class="layui-col-md5">
+{$page}
+  </div>
+  <div class="layui-col-md1">
+&nbsp;
+  </div>
+</div>
+
+
+
+
+
+
+
+
+</div>
+  </div>
+  
+ 
+</div>
+
+
+
+<script src="__ADMIN__/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+
+
+
+
+
+
+
+
+
+layui.use('layer', function(){ //独立版的layer无需执行这一句
+  var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+  
+  //触发事件
+  var active = {
+    setTop: function(){
+      var that = this; 
+      //多窗口模式，层叠置顶
+    
+    }
+ 
+    ,offset: function(othis){
+      var type = othis.data('type')
+      ,text = othis.text();
+      
+      layer.open({
+        type: 1
+        ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+        ,id: 'layerDemo'+type //防止重复弹出
+        ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
+        ,btn: '确认删除'
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0 //不显示遮罩
+        ,yes: function(){
+          $.post("__URL__/deluser",{id:othis[0].id},function(result){
+             console.log(result);
+		
+		if(result=="no"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('用户不存在');
+			});
+		}
+
+		if(result=="error"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('只限admin用户执行');
+			});
+		}
+
+		if(result=="ok"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('删除用户成功');
+			});
+     		     $(othis).parent().parent().parent().remove();
+		}
+		if(result=="noadmin"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('无法删除admin用户');
+			});
+		}
+
+	if(result=="delno"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('删除用户失败');
+			});
+		}
+
+          })
+
+          layer.closeAll();
+        }
+      });
+    }
+  };
+  
+  $('#layerDemo .layui-btn').on('click', function(){
+    var othis = $(this), method = othis.data('method');
+    active[method] ? active[method].call(this, othis) : '';
+  });
+  
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+               
+          
+

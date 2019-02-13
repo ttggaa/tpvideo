@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>视频管理后台</title>
+  <link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+<style>
+.layui-form-label {
+    float: left;
+    display: block;
+    padding: 9px 15px;
+    width: 90px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: right;
+}
+
+.layui-col-space10>* {
+    padding: 20px;
+}
+.layui-nav * {
+    font-size: 16px;
+font-weight:bold;
+}
+
+
+</style>
+
+
+
+</head>
+<body class="layui-layout-body ">
+<div class="layui-layout layui-layout-admin layui-bg-blue">
+  <div class="layui-header layui-bg-blue">
+    <div class="layui-logo layui-bg-blue">魅影_ 局域网视频管理后台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+   
+  
+  </div>
+
+
+
+
+ <div class="layui-side layui-bg-blue">
+    <div class="layui-side-scroll layui-bg-blue">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree layui-bg-blue"  lay-filter="test">
+        
+       <li class="layui-nav-item layui-bg-blue"><a href="__URL__/admin">视频管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/sort">视频分类管理</a></li>
+  	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/user">用户管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/repass">修改密码</a></li>
+ 	 <li class="layui-nav-item layui-bg-blue"><a href="__URL__/logout">退出登陆</a></li>
+	
+      </ul>
+    </div>
+  </div>
+
+
+
+
+  
+  <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+
+
+<div class="layui-row layui-col-space10">
+  <div class="layui-col-md8">
+<a href="__URL__/user"><font size="5" color="#01AAED">返回&nbsp;&nbsp;&nbsp;
+</font></a>
+<font size="5" color="#01AAED">
+      修改&nbsp;&nbsp;{$username}&nbsp;&nbsp;的密码&nbsp;&nbsp;&nbsp;
+</font>
+<font size="5" color="#01AAED">{$error}
+</font>
+
+  </div>
+  <div class="layui-col-md2" >
+
+<div class="layui-btn-container">
+
+
+
+</div>
+
+  </div>
+  <div class="layui-col-md2">
+  	
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="layui-row layui-col-space10">
+  <div class="layui-col-md4">
+  </div>
+  <div class="layui-col-md4">
+  
+
+
+
+<form class="layui-form"  action="__URL__/upuser" method="post">
+<input name="userid" type="hidden" value="{$userid}">
+  <div class="layui-form-item">
+    <label class="layui-form-label" ><font size="3" color="#01AAED">输入新密码:</font></label>
+    <div class="layui-input-inline">
+  <input type="password" name="password" required lay-verify="required" placeholder="请输入新密码" autocomplete="off" class="layui-input">
+
+    </div>
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label"><font size="3" color="#01AAED">确认新密码:</font></label>
+    <div class="layui-input-inline">
+      <input type="password" name="repassword" required lay-verify="required" placeholder="请确认密码" autocomplete="off" class="layui-input">
+    </div>
+ 
+  </div>
+ 
+  
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn layui-bg-blue" lay-submit lay-filter="formDemo">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+
+
+
+
+
+  </div>
+  <div class="layui-col-md4">
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  </div>
+  
+ 
+</div>
+
+
+
+<script src="__ADMIN__/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+               
+          
+

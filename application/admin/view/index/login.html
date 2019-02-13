@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="__ADMIN__/layui/css/style.css" rel='stylesheet' type='text/css' />
+</head>
+
+<body>
+	<div class="main">
+		<div class="login">
+			<h1>视频管理后台</h1>
+			<div class="inset">
+				<!--start-main-->
+				<form action="__URL__/checklogin" method="post">
+			         <div>
+			         	<h2>管理登录</h2>
+						<span><label>用户名</label></span>
+						<span><input type="text" class="textbox" name="username" ></span>
+					 </div>
+					 <div>
+						<span><label>密码</label></span>
+					    <span><input type="password" class="password" name="password"></span>
+					 </div>
+					<span><a href="__URL__/index"><font color="#01AAED">返回</font></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">{$error}</font></span> 
+					<div class="sign">
+            		            <input type="submit" value="登录" class="submit" />
+					</div>
+					</form>
+				</div>
+			</div>
+		<!--//end-main-->
+		</div>
+
+
+
+</body>
+</html>

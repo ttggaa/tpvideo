@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>视频管理后台</title>
+  <link rel="stylesheet" href="__ADMIN__/layui/css/layui.css">
+<style>
+.layui-nav * {
+    font-size: 16px;
+font-weight:bold;
+}
+
+
+
+
+
+
+  .layui-layer {
+    -webkit-overflow-scrolling: touch;
+    top: 150px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    background-color: #000 !important ;
+    background-color:rgba(0,0,0,.3) !important;
+    -webkit-background-clip: content;
+    border-radius: 2px;
+    box-shadow: 1px 1px 50px rgba(0,0,0,.6) !important ;
+  
+}
+.layui-layer-page .layui-layer-content{
+  color:#fff !important;
+}
+.layui-layer-title{
+/*color:#fff !important;
+background-color: rgba(0,0,0,.0) !important;*/
+background-color: #1E9FFF !important;
+ border-bottom:none !important;
+}
+
+
+
+
+
+
+
+
+
+
+</style>
+
+  <link href="__ADMIN__/fcup/fcup/css/style.css" rel="stylesheet" /> 
+
+</head>
+<body class="layui-layout-body ">
+<div class="layui-layout layui-layout-admin layui-bg-blue">
+  <div class="layui-header layui-bg-blue">
+    <div class="layui-logo layui-bg-blue">  魅影_ 局域网视频管理后台</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+   
+  
+  </div>
+
+ <div class="layui-side layui-bg-blue">
+    <div class="layui-side-scroll layui-bg-blue">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree layui-bg-blue"  lay-filter="test">
+      <li class="layui-nav-item layui-bg-blue"><a href="__URL__/admin">视频管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/sort">视频分类管理</a></li>
+  	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/user">用户管理</a></li>
+	<li class="layui-nav-item layui-bg-blue"><a href="__URL__/repass">修改密码</a></li>
+ 	 <li class="layui-nav-item layui-bg-blue"><a href="__URL__/logout">退出登陆</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+  <div class="layui-body ">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+
+
+
+<div class="layui-row layui-col-space10">
+  <div class="layui-col-md4">
+<font size="5" color="#01AAED">
+  局域网视频管理网站
+</font>
+<a href="__URL__/admrefresh" class="layui-btn layui-btn-normal">刷新视频</a>
+
+  </div>
+  <div class="layui-col-md4" >
+
+<div class="layui-btn-container">
+
+  <div class="fcup"></div>  
+
+</div>
+
+  </div>
+  <div class="layui-col-md4">
+  	<form class="layui-form" action="__URL__/asearch" method="post">
+	<input type="text" style="height:24px;width:200px"  name="ainfo" required  lay-verify="required" placeholder="查找视频" autocomplete="off"  >
+	<input type="submit" class="layui-btn layui-btn-sm layui-btn-normal">
+	</form>
+  </div>
+</div>
+
+
+
+
+
+<table class="layui-table" lay-even lay-skin="nob">
+
+ <colgroup>
+    <col width="150">
+    <col width="200">
+    <col>
+  </colgroup>
+  <thead>
+    <tr>
+      <th>名称</th>
+      <th>修改时间</th>
+      <th>分类</th>
+	<th>缩略图</th>
+	<th>修改分类</th>
+ 	<th>删除</th>
+    </tr> 
+  </thead>
+  <tbody>
+{volist name="viinfo" id="info"}
+    <tr>
+      <td>{$info.vname}</td>
+      <td>{$info.time}</td>
+      <td>{$info.name}</td>
+	<td><img src="__VIDEOIMG__/{$info.vimg}"></td>
+	<td><a href="__URL__/resort/id/{$info.id}" class="layui-btn layui-btn-sm layui-btn-normal">修改视频分类</a></td>
+<td>
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+  <button id="{$info.id}" data-method="offset" data-type="auto" class="layui-btn layui-btn-normal layui-btn-sm">删除视频</button>
+</div>
+
+</td>
+    </tr>
+ {/volist}
+
+
+  </tbody>
+</table>
+
+
+
+<div class="layui-row layui-col-space9">
+  <div class="layui-col-md6">
+&nbsp;
+  </div>
+  <div class="layui-col-md5">
+{$page}
+  </div>
+  <div class="layui-col-md1">
+&nbsp;
+  </div>
+</div>
+
+
+</div>
+  </div>
+  
+
+</div>
+
+
+<script src="__ADMIN__/layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use('element', function(){
+  var element = layui.element;
+  
+});
+
+
+layui.use('layer', function(){ //独立版的layer无需执行这一句
+  var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句
+  
+  //触发事件
+  var active = {
+    setTop: function(){
+      var that = this; 
+      //多窗口模式，层叠置顶
+    
+    }
+ 
+    ,offset: function(othis){
+      var type = othis.data('type')
+      ,text = othis.text();
+      
+      layer.open({
+        type: 1
+        ,offset: type //具体配置参考：http://www.layui.com/doc/modules/layer.html#offset
+        ,id: 'layerDemo'+type //防止重复弹出
+        ,content: '<div style="padding: 20px 100px;">'+ text +'</div>'
+        ,btn: '确认删除'
+        ,btnAlign: 'c' //按钮居中
+        ,shade: 0 //不显示遮罩
+        ,yes: function(){
+          $.post("__URL__/delv",{id:othis[0].id},function(result){
+             console.log(result);
+		if(result=="nofile"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('视频不存在,已删除该记录');
+			});
+		  $(othis).parent().parent().parent().remove();
+		}
+		if(result=="error"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('删除文件错误');
+			});
+		}
+		if(result=="ok"){
+			layui.use(['layer', 'form'], function(){
+			  var layer = layui.layer
+			  ,form = layui.form;
+			  layer.msg('删除视频成功');
+			});
+     		     $(othis).parent().parent().parent().remove();
+		}
+
+          })
+
+          layer.closeAll();
+        }
+      });
+    }
+  };
+  
+  $('#layerDemo .layui-btn').on('click', function(){
+    var othis = $(this), method = othis.data('method');
+    active[method] ? active[method].call(this, othis) : '';
+  });
+  
+});
+
+
+</script>
+
+
+  <script src="__ADMIN__/fcup/js/jquery.min.js"></script> 
+  <!--  引入js  --> 
+  <script src="__ADMIN__/fcup/fcup/js/jquery.fcup.js"></script> 
+  <script>
+$.fcup({
+    updom: '.fcup',//上传控件的位置dom		
+	//upid: 'upid',//上传的文件表单id，有默认
+	shardsize: '2',//切片大小,(单次上传最大值)单位M，默认2M
+	upmaxsize : '4096',//上传文件大小,单位M，不设置不限制
+	upstr: '上传新视频文件',//按钮文字
+	uploading: '上传中...',//上传中的提示文字
+    upfinished: '上传完成,请刷新网页',//上传完成后的提示文字
+	//upurl: '__ADMIN__/fcup/php/file.php',//文件上传接口 node接口:http://127.0.0.1:8888/upload
+	upurl: '__URL__/upfile',
+	//uptype: 'mp4',//上传类型检测,用,号分割
+    errmaxup: '上传文件过大',//检测文件是否超出设置上传大小
+	errtype: '请上传mp4文件',//不支持类型的提示文字
+	//接口返回结果回调
+	upcallback : function(result){
+	     console.log(result);
+	
+
+		 if (result == 'failed') {
+			$.fcupStop('出现错误');//终止运行,并且在按钮上显示内容
+		 }	
+
+         
+		  
+	}
+});
+</script>  
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+               
+          
+

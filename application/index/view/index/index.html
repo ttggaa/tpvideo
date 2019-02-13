@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>视频管理</title>
+<script src="__HOMES__/layui/layui.js"></script>
+  <link rel="stylesheet" href="__HOMES__/layui/css/layui.css">
+
+<style>
+
+.layui-input{width:20%;}
+.layui-row{margin-top:20px;}
+
+.layui-col-md9 {
+margin-left:100px;
+    width: 60%;
+}
+.layui-col-md4{
+padding-top:30px;
+text-align:center;
+
+}
+
+
+.layui-col-md3 {
+ width: 25%;
+float:right;
+}
+
+
+.footer{
+margin-top:30px;
+height:60px;
+background:#01AAED;
+}
+
+.layui-nav * {
+    font-size: 18px;
+font-weight:bold;
+}
+
+
+html{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.main-content{
+   flex: 1 0 auto;
+}
+
+footer{
+height:60px;
+background:#01AAED;
+flex: 0 0 auto;
+}
+
+</style>
+</head>
+<body>
+ 
+<!-- 你的HTML代码 -->
+<nav>
+<ul class="layui-nav layui-bg-blue" lay-filter="">
+  <li class="layui-nav-item" ><a href="__URL__">首页</a></li>
+{foreach $sortinfo as $k => $v }
+  <li class="layui-nav-item "><a href="__URL__/class/id/{$v.id}">{$v.name}</a></li>
+{/foreach}
+  <li class="layui-nav-item"><a href="__URL__/login">视频管理</a></li>
+  <li class="layui-nav-item"><a href="__URL__/refresh">刷新视频</a></li>
+</ul>
+</nav>
+
+  <div class="layui-row" >
+<div class="layui-col-md9">
+<font size="6" color="#01AAED">
+      局域网视频管理网站
+</font>
+</div>
+
+
+    <div class="layui-col-md3">
+     	<form class="layui-form" action="__URL__/search" method="post">
+	<input type="text" style="height:24px;width:200px"  name="info" required  lay-verify="required" placeholder="查找视频" autocomplete="off"  >
+	<input type="submit" class="layui-btn layui-btn-sm layui-btn-normal">
+	</form>
+
+
+    </div>
+
+ </div>
+
+
+<script>
+//注意：导航 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
+
+
+
+
+
+
+
+
+<div class="layui-row layui-col-space9">
+{volist name="viinfo" id="vo"}
+
+
+  <div class="layui-col-md4">
+ <a  href="__URL__/video/id/{$vo.id}"><img  src="__VIDEOIMG__/{$vo.vimg}"></a>
+
+
+<div class="layui-row grid-demo">
+      <div class="layui-col-md3">
+
+      </div>
+      <div class="layui-col-md12">
+ <span>上传时间:</span>{$vo.time}
+      </div>
+      <div class="layui-col-md12">  
+<a href="__URL__/video/id/{$vo.id}">
+<font size="4" color="#01AAED">
+   {$vo.vname}
+</font>
+</a>
+      </div>
+    </div>
+
+
+
+
+  </div>
+  
+ 
+
+{/volist}
+
+</div>
+
+
+
+
+ <div class="layui-row layui-col-space9">
+  <div class="layui-col-md4">
+  </div>
+  <div class="layui-col-md4">
+  </div>
+  <div class="layui-col-md4">
+{$page}
+</div>
+</div>
+
+
+
+
+
+<section class="main-content"></section>
+    <footer></footer>
+
+<script>
+//一般直接写在一个js文件中
+layui.use(['layer', 'form'], function(){
+  var layer = layui.layer
+  ,form = layui.form;
+  
+  layer.msg('视频管理网站首页');
+});
+</script> 
+</body>
+</html>
